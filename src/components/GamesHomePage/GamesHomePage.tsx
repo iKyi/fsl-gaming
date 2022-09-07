@@ -4,6 +4,8 @@ import ResponsiveSpace from "components/Reusable/ResponsiveSpace";
 import usePageData from "hooks/usePageData";
 import { FONTS } from "lib/theme";
 import ApplynowtogetyourgamelistedBox from "./ApplynowtogetyourgamelistedBox";
+import GameHomeSplashBox from "./GameHomeSplashBox";
+import { IStrapiGameDataType } from "./GamesGrid/GameGridEntry";
 import GamesGrid from "./GamesGrid/GamesGrid";
 
 export type GamesHomePagePropsType = {
@@ -19,6 +21,12 @@ const GamesHomePage: React.FC<GamesHomePagePropsType> = ({ children }) => {
     gameListedSubtitle,
     applyListingNowButton,
   } = publicSiteData ?? {};
+
+  const splashGame = gamesData?.find(
+    (item: IStrapiGameDataType) =>
+      item.attributes.gameUrl === "champions-league"
+  );
+
   // *************** RENDER *************** //
   return (
     <Box
@@ -26,6 +34,7 @@ const GamesHomePage: React.FC<GamesHomePagePropsType> = ({ children }) => {
         px: [2, 2, 4],
       }}
     >
+      {splashGame && <GameHomeSplashBox data={splashGame} />}
       <Box
         sx={{
           fontSize: [18, 18, 22],

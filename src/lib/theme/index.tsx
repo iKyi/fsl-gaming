@@ -253,6 +253,9 @@ const getOverRides = (theme: Theme) => {
           },
           ".TPURPLE": {
             color: "#5F1BD2",
+            background: `linear-gradient(270deg, #B048FD 5.17%, #6216D2 35.02%, #3E4ECC 64.87%, #3E75D5 100%)`,
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
           },
           ".TORANGE": {
             color: "rgba(255, 89, 30, 1)",
