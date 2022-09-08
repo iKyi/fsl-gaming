@@ -8,6 +8,7 @@ import { StrapiContext } from "providers/StrapiPublicProvider";
 import SeoComp from "components/Reusable/Seo";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import FourOhFourComp from "components/FourOhFour/FourOhFourComp";
+import Leaderboards from "components/Leaderboards/Leaderboards";
 
 const App: React.FC = () => {
   const { seo } = useContext(StrapiContext);
@@ -30,6 +31,7 @@ const App: React.FC = () => {
         <SeoComp seo={seo} />
         <Routes>
           <Route element={<HomePage />} index />
+          <Route element={<Leaderboards />} path="/leaderboards" />
           <Route path="*" element={<FourOhFourComp />} />
         </Routes>
       </PageWithNavWrapper>

@@ -222,7 +222,7 @@ const GameHomeSplashBox: React.FC<GameHomeSplashBoxPropsType> = ({ data }) => {
                   size="small"
                   color="secondary"
                   component={Link}
-                  to={`/leadeboards`}
+                  to={`/leaderboards`}
                   sx={{ mt: 3 }}
                 >
                   LEADERBOARDS

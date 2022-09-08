@@ -263,6 +263,22 @@ const getOverRides = (theme: Theme) => {
           ".TLIGHTBLUE": {
             color: "rgba(0, 245, 245, 1)",
           },
+          ".prizePoolTitle": {
+            color: "#fff",
+            textShadow: `0px 0px 10px rgba(0, 245, 245, 1)`,
+            fontSize: 18,
+            marginBottom: theme.spacing(2),
+            fontFamily: FONTS.MOKOTOONE,
+          },
+          ".prizePoolValue": {
+            color: "#5F1BD2",
+            background: `linear-gradient(208.35deg, #00F5F5 36.37%, #008EF5 46.39%)`,
+            backgroundClip: "text",
+            fontSize: 17,
+            fontWeight: 500,
+            WebkitTextFillColor: "transparent",
+            marginBottom: theme.spacing(1.5),
+          },
           h1: {
             fontFamily: FONTS.LATO,
           },
