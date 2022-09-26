@@ -1,13 +1,16 @@
 import { Box } from "@mui/material";
 import SectionHeader from "components/Reusable/SectionHeader";
 import StrapiLinkButton from "components/Reusable/StrapiLinkButton";
+import { getStrapiMedia } from "lib/theme/media";
 import { centerFlex } from "utils/sxUtils";
+import logoFaded from "assets/images/logoFaded.png";
 
 export type ApplynowtogetyourgamelistedBoxPropsType = {
   gameListedPretitle?: string | null;
   gameListedTitle?: string | null;
   gameListedSubtitle?: string | null;
   applyListingNowButton?: any;
+  gameListedBackgroundImage?: any;
 };
 
 const ApplynowtogetyourgamelistedBox: React.FC<
@@ -17,7 +20,9 @@ const ApplynowtogetyourgamelistedBox: React.FC<
   gameListedTitle,
   gameListedSubtitle,
   applyListingNowButton,
+  gameListedBackgroundImage,
 }) => {
+  const backgroundUrl = getStrapiMedia(gameListedBackgroundImage);
   // *************** RENDER *************** //
   return (
     <Box
@@ -28,10 +33,11 @@ const ApplynowtogetyourgamelistedBox: React.FC<
     >
       <Box
         sx={{
-          border: "1px solid",
-          borderImageSlice: 1,
-          borderImageSource: `linear-gradient(168.82deg, #FB37FF 1.7%, rgba(155, 111, 238, 0) 27.12%, rgba(123, 127, 234, 0) 61.28%, #1BB2DE 99.52%)`,
-          backgroundColor: `rgba(0,0,0,0.35)`,
+          background: `url('${logoFaded}') ,url('${backgroundUrl}')`,
+          backgroundSize: "220px auto ,100% 100%",
+          backgroundPosition: "10% center ,center center",
+          backgroundRepeat: "no-repeat, no-repeat",
+          px: 1,
           py: [3, 3, 5],
         }}
       >

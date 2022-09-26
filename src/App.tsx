@@ -9,6 +9,7 @@ import SeoComp from "components/Reusable/Seo";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import FourOhFourComp from "components/FourOhFour/FourOhFourComp";
 import Leaderboards from "components/Leaderboards/Leaderboards";
+import ChampionsLeague from "components/Games/ChampionsLeague/ChampionsLeagueComp";
 
 const App: React.FC = () => {
   const { seo } = useContext(StrapiContext);
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <Routes>
           <Route element={<HomePage />} index />
           <Route element={<Leaderboards />} path="/leaderboards" />
+          <Route element={<ChampionsLeague />} path="champions-league" />
           <Route path="*" element={<FourOhFourComp />} />
         </Routes>
       </PageWithNavWrapper>

@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { useAppSelector } from "app/hooks";
 import MarkdownParser from "components/Reusable/MarkdownParser";
+import ResponsiveSpace from "components/Reusable/ResponsiveSpace";
 import { FONTS } from "lib/theme";
 import { mockTableData } from "mockData/leaderboardTableitems";
 import { FC } from "react";
@@ -51,6 +52,7 @@ const Leaderboards: React.FC<LeaderboardsPropsType> = ({ children }) => {
   // *************** RENDER *************** //
   return (
     <Box sx={{ px: [2, 2, 4] }}>
+      <ResponsiveSpace />
       <LeaderboardsPlayerBox
         playerPlace={5}
         totalPrizes={6500}

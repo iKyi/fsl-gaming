@@ -8,6 +8,7 @@ import gameSplashBox from "assets/images/backgrounds/gameSplashBox.png";
 import { Link } from "react-router-dom";
 import { CalendarMonthOutlined } from "@mui/icons-material";
 import { DateTime } from "luxon";
+import gameSplashBoxNftRequiredBg from "./gameSplashBoxNftRequiredBg.png";
 
 export type GameHomeSplashBoxPropsType = {
   data: IStrapiGameDataType;
@@ -62,24 +63,46 @@ const GameHomeSplashBox: React.FC<GameHomeSplashBoxPropsType> = ({ data }) => {
       return (
         <Box
           sx={{
+            background: `rgba(59, 234, 150, 0.09)`,
+            border: `1px solid #3BEA96`,
+            borderRadius: `4px`,
+            padding: "8px",
             ...centerFlex,
           }}
         >
           <Box
             sx={{
-              width: 10,
-              height: 10,
-              borderRadius: "100%",
-              backgroundColor: "#3BEA96",
-              mr: 1,
+              ...centerFlex,
             }}
-          />
-          <Box>Started</Box>
+          >
+            <Box
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: "100%",
+                backgroundColor: "#3BEA96",
+                mr: 1,
+              }}
+            />
+            <Box>Started</Box>
+          </Box>
         </Box>
       );
     }
     if (!tournamentStartDate) {
-      return <Box>TBA</Box>;
+      return (
+        <Box
+          sx={{
+            background: `rgba(255, 255, 255, 0.09)`,
+            border: `1px solid rgba(255, 255, 255, 0.28)`,
+            borderRadius: `4px`,
+            padding: "8px",
+            ...centerFlex,
+          }}
+        >
+          <Box>TBA</Box>;
+        </Box>
+      );
     }
 
     return <Box>TBA</Box>;
@@ -116,23 +139,15 @@ const GameHomeSplashBox: React.FC<GameHomeSplashBoxPropsType> = ({ data }) => {
                   padding: "8px",
                 }}
               >
+                <StartElement />
+
                 <Box
                   sx={{
-                    background: `rgba(255, 255, 255, 0.09)`,
-                    border: `1px solid rgba(255, 255, 255, 0.28)`,
-                    borderRadius: `4px`,
-                    padding: "8px",
-                    ...centerFlex,
-                  }}
-                >
-                  <StartElement />
-                </Box>
-                <Box
-                  sx={{
-                    background: `rgba(1, 246, 246, 0.13)`,
-                    borderRadius: "4px",
-                    border: `1px solid rgba(255, 255, 255, 0.28)`,
-                    padding: "8px",
+                    background: `url('${gameSplashBoxNftRequiredBg}')`,
+                    backgroundSize: "100% 100%",
+                    backgroundPosition: "center center",
+                    backgroundRepeat: "no-repeat",
+                    padding: "9px 8px",
                     ...centerFlex,
                   }}
                 >

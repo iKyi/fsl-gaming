@@ -71,7 +71,7 @@ const LeaderTable: React.FC<LeaderTablePropsType> = ({ items }) => {
                 sx={{
                   background: isOfCurrentUser
                     ? `linear-gradient(208.35deg, rgba(0, 245, 245, 0.13) 36.37%, rgba(0, 142, 245, 0.13) 46.39%)`
-                    : `linear-gradient(115.7deg, rgba(176, 72, 253, 0.1) 10.28%, rgba(98, 22, 210, 0.1) 24.23%, rgba(62, 78, 204, 0.1) 38.19%, rgba(62, 117, 213, 0.1) 54.61%)`,
+                    : `linear-gradient(115.7deg, rgba(176, 72, 253, 0.03) 10.28%, rgba(98, 22, 210, 0.03) 24.23%, rgba(62, 78, 204, 0.03) 38.19%, rgba(62, 117, 213, 0.03) 54.61%)`,
                   td: {
                     py: 2,
                     borderTop: `1px solid ${
@@ -97,9 +97,9 @@ const LeaderTable: React.FC<LeaderTablePropsType> = ({ items }) => {
                     },
                   },
                   "&:first-of-type": {
-                    td: {
-                      borderColro: "rgba(176, 72, 253, 1)",
-                    },
+                    background: !isOfCurrentUser
+                      ? `linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(176, 72, 253, 0.12)`
+                      : undefined,
                   },
                 }}
               >

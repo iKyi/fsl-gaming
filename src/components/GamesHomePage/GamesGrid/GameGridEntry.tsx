@@ -42,6 +42,7 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
     solPrize,
     gameUrl,
     type,
+    description,
   } = attributes;
 
   const bannerImageUrl = getStrapiMedia(image);
@@ -65,6 +66,8 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
           <Box
             sx={{
               ...centerFlex,
+              fontSize: "1.1rem",
+              fontWeight: 300,
             }}
           >
             <CalendarMonthOutlined sx={{ mr: 1 }} />
@@ -92,7 +95,7 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
               mr: 1,
             }}
           />
-          <Box>Running</Box>
+          <Box>LIVE</Box>
         </Box>
       );
     }
@@ -112,6 +115,9 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
         borderImageSource: `linear-gradient(168.82deg, #FB37FF 1.7%, rgba(155, 111, 238, 0) 27.12%, rgba(123, 127, 234, 0) 61.28%, #1BB2DE 99.52%)`,
         background: `rgba(255, 255, 255, 0.03)`,
         backdropFilter: `blur(649.821px)`,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
         p: 2,
       }}
     >
@@ -131,7 +137,7 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
         sx={{
           display: "flex",
           alignItems: "center",
-          py: [2, 2, 3],
+          my: [2, 2, 3],
         }}
       >
         {iconUrl && (
@@ -168,6 +174,18 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
           </Box>
         </Stack>
       </Box>
+      {description && (
+        <Box
+          sx={{
+            mb: [2, 2, 3],
+            fontWeight: 300,
+            fontSize: "16px",
+            lineHeight: "28px",
+          }}
+        >
+          {description}
+        </Box>
+      )}
       <Grid container>
         <Grid item xs={6}>
           <Stack
@@ -195,7 +213,14 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
               >
                 <TrophyIcon color="inherit" sx={{ mr: 1 }} />
               </Box>
-              <Box>{solPrize ? `${solPrize} SOL` : "TBA"}</Box>
+              <Box
+                sx={{
+                  fontSize: "1.1rem",
+                  fontWeight: 300,
+                }}
+              >
+                {solPrize ? `${solPrize} SOL` : "TBA"}
+              </Box>
             </Box>
           </Stack>
         </Grid>
@@ -221,6 +246,7 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
       {gameUrl && (
         <Box
           sx={{
+            mt: "auto",
             pt: 4,
             pb: 1,
           }}

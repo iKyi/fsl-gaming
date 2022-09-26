@@ -20,6 +20,7 @@ const GamesHomePage: React.FC<GamesHomePagePropsType> = ({ children }) => {
     gameListedTitle,
     gameListedSubtitle,
     applyListingNowButton,
+    gameListedBackgroundImage,
   } = publicSiteData ?? {};
 
   const splashGame = gamesData?.find(
@@ -34,6 +35,7 @@ const GamesHomePage: React.FC<GamesHomePagePropsType> = ({ children }) => {
         px: [2, 2, 4],
       }}
     >
+      <ResponsiveSpace />
       {splashGame && <GameHomeSplashBox data={splashGame} />}
       <Box
         sx={{
@@ -50,6 +52,7 @@ const GamesHomePage: React.FC<GamesHomePagePropsType> = ({ children }) => {
         gameListedTitle={gameListedTitle}
         gameListedSubtitle={gameListedSubtitle}
         gameListedPretitle={gameListedPretitle}
+        gameListedBackgroundImage={gameListedBackgroundImage}
       />
       <ResponsiveSpace />
     </Box>

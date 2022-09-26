@@ -31,7 +31,7 @@ const LeaderboardsPlayerBox: React.FC<LeaderboardsPlayerBoxPropsType> = ({
       sx={{
         border: "1px solid",
         borderImageSlice: 1,
-        borderImageSource: `linear-gradient(168.82deg, #FB37FF 1.7%, rgba(155, 111, 238, 0) 27.12%, rgba(123, 127, 234, 0) 61.28%, #1BB2DE 99.52%)`,
+        borderImageSource: `linear-gradient(123.49deg, #B048FD 8.63%, #6216D2 25.73%, #3E4ECC 42.83%, #3E75D5 62.96%)`,
         backgroundColor: `rgba(0,0,0,0.35)`,
         my: [2, 2, 3],
       }}
