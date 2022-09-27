@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { centerFlex } from "utils/sxUtils";
 import { DateTime } from "luxon";
 import { CalendarMonthOutlined } from "@mui/icons-material";
+import gridItemBackground from "./gridItemBackground.png";
 
 export interface IStrapiGameDataType {
   id: number;
@@ -109,16 +110,14 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
   return (
     <Box
       sx={{
-        border: "1px solid",
-        filter: `drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))`,
-        borderImageSlice: 1,
-        borderImageSource: `linear-gradient(168.82deg, #FB37FF 1.7%, rgba(155, 111, 238, 0) 27.12%, rgba(123, 127, 234, 0) 61.28%, #1BB2DE 99.52%)`,
-        background: `rgba(255, 255, 255, 0.03)`,
-        backdropFilter: `blur(649.821px)`,
+        background: `url('${gridItemBackground}')`,
+        backgroundSize: "100% 100%",
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        p: 2,
+        p: [2, 2, 3],
       }}
     >
       {bannerImageUrl && (
@@ -129,7 +128,7 @@ const GameGridEntry: React.FC<GameGridEntryPropsType> = ({ data }) => {
             background: `url('${bannerImageUrl}')`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
-            boxShadow: `0px 0px 15px rgba(0, 245, 245, 0.25)`,
+            borderRadius: "8px",
           }}
         />
       )}
