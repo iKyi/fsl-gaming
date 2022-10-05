@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import ResponsiveSpace from "components/Reusable/ResponsiveSpace";
 import ChampionsGame from "./ChampionsGame";
 
 export type ChampionsLeaguePropsType = {
@@ -8,14 +9,17 @@ export type ChampionsLeaguePropsType = {
 const ChampionsLeague: React.FC<ChampionsLeaguePropsType> = ({ children }) => {
   // *************** RENDER *************** //
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <ChampionsGame />
+    <Box>
+      <ResponsiveSpace />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <ChampionsGame />
+      </Box>
     </Box>
   );
 };
