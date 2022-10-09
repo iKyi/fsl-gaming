@@ -1,25 +1,27 @@
-import { Box, SxProps, Theme } from "@mui/material";
+import { Box, Hidden } from "@mui/material";
 import { useState } from "react";
 import { centerFlex } from "utils/sxUtils";
-import BallButton from "../BallButton";
+import ChampionsVideoBox from "./subcomponents/ChampionsVideoBox";
+import { AnimatePresence } from "framer-motion";
+import ChampionsBallButtonBox from "./subcomponents/ChampionsBallButtonBox";
+import ChampionsTopButtonBar from "./subcomponents/ChampionsTopButtonBar";
+import BuyShotsDialog from "./subcomponents/BuyShotsDialog/BuyShotsDialog";
+import { useAppDispatch } from "app/hooks";
+import { doChampionsLeagueShot } from "features/games/championsLeagueSlice";
+import ResponsiveSpace from "components/Reusable/ResponsiveSpace";
 
-import idle from "./videos/aster/idle.mp4";
-import yesTopLeft from "./videos/aster/y-left-up.mp4";
-import noTopLeft from "./videos/aster/n-left-up.mp4";
-import yesTopRight from "./videos/aster/y-right-up.mp4";
-import noTopRight from "./videos/aster/n-right-up.mp4";
-import yesCenter from "./videos/aster/y-center.mp4";
-import noCenter from "./videos/aster/n-center-down.mp4";
-import yesBottomLeft from "./videos/aster/y-left-down.mp4";
-import noBottomLeft from "./videos/aster/n-left-down.mp4";
-import yesBottomRight from "./videos/aster/y-right-down.mp4";
-import noBottomRight from "./videos/aster/n-right-down.mp4";
+const yesTopLeft = "./championVideos/aster/y-left-up.mp4";
+const noTopLeft = "./championVideos/aster/n-left-up.mp4";
+const yesTopRight = "./championVideos/aster/y-right-up.mp4";
+const noTopRight = "./championVideos/aster/n-right-up.mp4";
+const yesCenter = "./championVideos/aster/y-center.mp4";
+const noCenter = "./championVideos/aster/n-center-down.mp4";
+const yesBottomLeft = "./championVideos/aster/y-left-down.mp4";
+const noBottomLeft = "./championVideos/aster/n-left-down.mp4";
+const yesBottomRight = "./championVideos/aster/y-right-down.mp4";
+const noBottomRight = "./championVideos/aster/n-right-down.mp4";
 
-const wasSuccess = () => {
-  return Math.random() > 0.5 ? true : false;
-};
-
-enum BUTTON_KEYS {
+export enum CHAMPIONS_BUTTON_KEYS {
   TOP_LEFT = "topLeft",
   BOTTOM_LEFT = "bottomLeft",
   CENTER = "center",
@@ -31,7 +33,9 @@ enum SHOOT_RESULT {
   SUCCESS = "success",
   FAIL = "fail",
 }
-export type ChampionsGamePropsType = {};
+export type ChampionsGamePropsType = {
+  walletId: string;
+};
 
 type TVideoState = Record<
   string,
@@ -41,80 +45,82 @@ type TVideoState = Record<
   >
 >;
 
-const StateMapper: TVideoState = {
+export const ChampionsStateMapper: TVideoState = {
   idle: {
-    src: idle,
+    src: undefined,
     loop: true,
-    autoPlay: true,
+    autoPlay: false,
   },
-  [`${BUTTON_KEYS.TOP_LEFT}_${SHOOT_RESULT.SUCCESS}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.TOP_LEFT}_${SHOOT_RESULT.SUCCESS}`]: {
     src: yesTopLeft,
     loop: false,
   },
-  [`${BUTTON_KEYS.TOP_LEFT}_${SHOOT_RESULT.FAIL}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.TOP_LEFT}_${SHOOT_RESULT.FAIL}`]: {
     src: noTopLeft,
     loop: false,
   },
-  [`${BUTTON_KEYS.CENTER}_${SHOOT_RESULT.SUCCESS}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.CENTER}_${SHOOT_RESULT.SUCCESS}`]: {
     src: yesCenter,
     loop: false,
   },
-  [`${BUTTON_KEYS.CENTER}_${SHOOT_RESULT.FAIL}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.CENTER}_${SHOOT_RESULT.FAIL}`]: {
     src: noCenter,
     loop: false,
   },
-  [`${BUTTON_KEYS.TOP_RIGHT}_${SHOOT_RESULT.SUCCESS}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.TOP_RIGHT}_${SHOOT_RESULT.SUCCESS}`]: {
     src: yesTopRight,
     loop: false,
   },
-  [`${BUTTON_KEYS.TOP_RIGHT}_${SHOOT_RESULT.FAIL}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.TOP_RIGHT}_${SHOOT_RESULT.FAIL}`]: {
     src: noTopRight,
     loop: false,
   },
-  [`${BUTTON_KEYS.BOTTOM_LEFT}_${SHOOT_RESULT.SUCCESS}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.BOTTOM_LEFT}_${SHOOT_RESULT.SUCCESS}`]: {
     src: yesBottomLeft,
     loop: false,
   },
-  [`${BUTTON_KEYS.BOTTOM_LEFT}_${SHOOT_RESULT.FAIL}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.BOTTOM_LEFT}_${SHOOT_RESULT.FAIL}`]: {
     src: noBottomLeft,
     loop: false,
   },
-  [`${BUTTON_KEYS.BOTTOM_RIGHT}_${SHOOT_RESULT.SUCCESS}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.BOTTOM_RIGHT}_${SHOOT_RESULT.SUCCESS}`]: {
     src: yesBottomRight,
     loop: false,
   },
-  [`${BUTTON_KEYS.BOTTOM_RIGHT}_${SHOOT_RESULT.FAIL}`]: {
+  [`${CHAMPIONS_BUTTON_KEYS.BOTTOM_RIGHT}_${SHOOT_RESULT.FAIL}`]: {
     src: noBottomRight,
     loop: false,
   },
 };
 
-const BoxStyles: SxProps<Theme> = {
-  ...centerFlex,
-};
-
-const ChampionsGame: React.FC<ChampionsGamePropsType> = () => {
+const ChampionsGame: React.FC<ChampionsGamePropsType> = ({ walletId }) => {
+  const dispatch = useAppDispatch();
+  const [puchaseModalActive, setPurchaseModalActive] = useState(false);
   const [videoState, setVideoState] = useState<
     React.DetailedHTMLProps<
       React.VideoHTMLAttributes<HTMLVideoElement>,
       HTMLVideoElement
     >
-  >(StateMapper["idle"]);
+  >(ChampionsStateMapper["idle"]);
   const [buttonsActive, setButtonsActive] = useState(true);
 
-  const onButtonClick = (buttonValue: string) => {
+  const onButtonClick = async (buttonValue: string) => {
     setButtonsActive(false);
-    const goal = wasSuccess();
+    const result = await dispatch(doChampionsLeagueShot(walletId, buttonValue));
 
-    console.log(`Target was ${buttonValue} and result was ${goal}`);
+    console.log(`Target was ${buttonValue} and result was ${result}`);
 
-    if (goal) {
-      setVideoState(StateMapper[`${buttonValue}_${SHOOT_RESULT.SUCCESS}`]);
+    if (result) {
+      setVideoState(
+        ChampionsStateMapper[`${buttonValue}_${SHOOT_RESULT.SUCCESS}`]
+      );
     } else {
-      setVideoState(StateMapper[`${buttonValue}_${SHOOT_RESULT.FAIL}`]);
+      setVideoState(
+        ChampionsStateMapper[`${buttonValue}_${SHOOT_RESULT.FAIL}`]
+      );
     }
     setTimeout(() => {
-      setVideoState(StateMapper[`idle`]);
+      setVideoState(ChampionsStateMapper[`idle`]);
       setButtonsActive(true);
     }, 3000);
   };
@@ -122,104 +128,54 @@ const ChampionsGame: React.FC<ChampionsGamePropsType> = () => {
   // *************** RENDER *************** //
   return (
     <Box>
+      <ResponsiveSpace />
+
       <Box
         sx={{
-          width: "100%",
-          maxWidth: 720,
-          position: "relative",
-          ...centerFlex,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <video
-          controls={false}
-          src={videoState.src ?? idle}
-          loop={videoState.loop ?? false}
-          muted={videoState.src === idle ? true : false}
-          autoPlay
-          style={{
-            position: "relative",
-            zIndex: 2,
-            width: "100%",
-            height: "auto",
-          }}
-        ></video>
+        <Box>
+          <Hidden mdUp>
+            <ChampionsTopButtonBar
+              onClick={() => setPurchaseModalActive(true)}
+            />
+          </Hidden>
+          <Box
+            sx={{
+              width: "100%",
+              maxWidth: 1366,
+              position: "relative",
+              ...centerFlex,
+            }}
+          >
+            <Hidden mdDown>
+              <AnimatePresence>
+                {buttonsActive && (
+                  <ChampionsTopButtonBar
+                    onClick={() => setPurchaseModalActive(true)}
+                  />
+                )}
+              </AnimatePresence>
+            </Hidden>
 
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateAreas: `
-            "topLeft middleTop topRight"
-            "centerButton centerButton centerButton"
-            "bottomLeft middleBottom bottomRight"
-            `,
-            gridGap: "5px",
-            position: "absolute",
-            zIndex: 3,
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            visibility: buttonsActive ? undefined : "hidden",
-          }}
-        >
-          <Box
-            sx={{
-              gridArea: "topLeft",
-              ...BoxStyles,
-            }}
-          >
-            <BallButton
-              id={BUTTON_KEYS.TOP_LEFT}
-              onClick={() => onButtonClick(BUTTON_KEYS.TOP_LEFT)}
+            <ChampionsVideoBox
+              buttonsActive={buttonsActive}
+              videoState={videoState}
             />
+            <AnimatePresence>
+              {buttonsActive && (
+                <ChampionsBallButtonBox onClick={onButtonClick} />
+              )}
+            </AnimatePresence>
           </Box>
-
-          <Box
-            sx={{
-              gridArea: "topRight",
-              ...BoxStyles,
-            }}
-          >
-            <BallButton
-              id={BUTTON_KEYS.TOP_RIGHT}
-              onClick={() => onButtonClick(BUTTON_KEYS.TOP_RIGHT)}
-            />
-          </Box>
-
-          <Box
-            sx={{
-              gridArea: "centerButton",
-              ...BoxStyles,
-            }}
-          >
-            <BallButton
-              id={BUTTON_KEYS.CENTER}
-              onClick={() => onButtonClick(BUTTON_KEYS.CENTER)}
-            />
-          </Box>
-
-          <Box
-            sx={{
-              gridArea: "bottomLeft",
-              ...BoxStyles,
-            }}
-          >
-            <BallButton
-              id={BUTTON_KEYS.BOTTOM_LEFT}
-              onClick={() => onButtonClick(BUTTON_KEYS.BOTTOM_LEFT)}
-            />
-          </Box>
-          <Box
-            sx={{
-              gridArea: "bottomRight",
-              ...BoxStyles,
-            }}
-          >
-            <BallButton
-              id={BUTTON_KEYS.BOTTOM_RIGHT}
-              onClick={() => onButtonClick(BUTTON_KEYS.BOTTOM_RIGHT)}
-            />
-          </Box>
+          <BuyShotsDialog
+            open={puchaseModalActive}
+            onClose={() => setPurchaseModalActive(false)}
+            walletId={walletId}
+          />
         </Box>
       </Box>
     </Box>

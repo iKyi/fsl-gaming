@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { API_URL } from "constants/general_contants";
+import { STRAPI_URL } from "constants/general_contants";
 import axiosInstance from "./axiosInstance";
 
 const axiosGetter = async (url: string) => {
@@ -15,7 +15,7 @@ const axiosGetter = async (url: string) => {
 };
 
 export const axiosStrapiGetter = async (url: string) => {
-  const strapiUrl = API_URL;
+  const strapiUrl = STRAPI_URL;
   if (!strapiUrl) {
     throw new Error("No strapi located");
   }

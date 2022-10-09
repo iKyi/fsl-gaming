@@ -1,7 +1,7 @@
-import { API_URL } from "constants/general_contants";
+import { STRAPI_URL } from "constants/general_contants";
 
 export function getStrapiURL(path = "") {
-  return `${API_URL || "http://localhost:1337"}${path}`;
+  return `${STRAPI_URL || "http://localhost:1337"}${path}`;
 }
 
 // Helper to make GET requests to Strapi

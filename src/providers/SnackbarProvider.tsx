@@ -65,10 +65,9 @@ const SnackbarProvider: React.VFC<SnackbarProviderPropsType> = () => {
                 <CardActionArea
                   onClick={() => dispatch(closeSnackbar(entry.id))}
                   sx={{
-                    border: (theme) =>
-                      !mobile
-                        ? "none"
-                        : `2px solid ${theme.palette.primary.main}`,
+                    border: `2px solid`,
+                    borderImageSlice: 1,
+                    borderImageSource: `linear-gradient(123.49deg, #B048FD 8.63%, #6216D2 25.73%, #3E4ECC 42.83%, #3E75D5 62.96%)`,
                     borderRadius: 0,
                     bgcolor: `rgba(0,0,0,0.85)`,
                     display: "flex",
