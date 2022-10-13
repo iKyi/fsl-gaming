@@ -46,6 +46,8 @@ const ChampionsBallButtonBox: React.FC<IChampionsBallButtonBox> = ({
           gridArea: "topLeft",
           ...BoxStyles,
           mt: "auto",
+          ml: ["auto", "auto", 10],
+          mb: ["-40px", "-40px", "-120px"],
         }}
       >
         <BallButton
@@ -59,6 +61,8 @@ const ChampionsBallButtonBox: React.FC<IChampionsBallButtonBox> = ({
           gridArea: "topRight",
           ...BoxStyles,
           mt: "auto",
+          mr: ["auto", "auto", 10],
+          mb: ["-40px", "-40px", "-120px"],
         }}
       >
         <BallButton
@@ -84,6 +88,8 @@ const ChampionsBallButtonBox: React.FC<IChampionsBallButtonBox> = ({
           gridArea: "bottomLeft",
           ...BoxStyles,
           mb: "auto",
+          ml: ["auto", "auto", 10],
+          mt: ["-60px", "-60px", "-80px"],
         }}
       >
         <BallButton
@@ -96,6 +102,8 @@ const ChampionsBallButtonBox: React.FC<IChampionsBallButtonBox> = ({
           gridArea: "bottomRight",
           ...BoxStyles,
           mb: "auto",
+          mr: ["auto", "auto", 10],
+          mt: ["-60px", "-60px", "-80px"],
         }}
       >
         <BallButton
