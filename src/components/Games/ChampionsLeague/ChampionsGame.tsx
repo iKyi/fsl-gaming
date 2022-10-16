@@ -153,11 +153,9 @@ const ChampionsGame: React.FC<ChampionsGamePropsType> = ({ walletId }) => {
           >
             <Hidden mdDown>
               <AnimatePresence>
-                {buttonsActive && (
-                  <ChampionsTopButtonBar
-                    onClick={() => setPurchaseModalActive(true)}
-                  />
-                )}
+                <ChampionsTopButtonBar
+                  onClick={() => setPurchaseModalActive(true)}
+                />
               </AnimatePresence>
             </Hidden>
 
